@@ -9,7 +9,7 @@ public class AssignmentTask1 {
         
         //You're not suppose to create any new Linked List for this task
         //TO DO
-
+        
         Node current1 = building1;
         Node current2 = building2;
 
@@ -21,7 +21,7 @@ public class AssignmentTask1 {
             }
         }
 
-        if (((current1.next==null && current2.next!=null)) || (current1.next!=null && current2.next==null)){
+        if (((current1.next == null && current2.next != null)) || (current1.next != null && current2.next == null)){
             return "Not Similar";
         }
 

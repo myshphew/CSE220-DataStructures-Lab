@@ -6,7 +6,7 @@ public class LabTask1 {
         
         //You're not suppose to create any new Linked List for this task
 
-        //TODO
+        //TO DO
         //Hint: the Node elements are actually Object, you can type cast them
         //      into int or Integer like the following:
         //        (int)n.elem  or  (Integer)n.elem

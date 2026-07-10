@@ -1,0 +1,151 @@
+AssgnTask1:
+
+public static String checkSimilar( Node building1, Node building2 ){
+    Node current1 = building1;
+    Node current2 = building2;
+    while (current1.next != null && current2.next != null){
+        current1 = current1.next;
+        current2 = current2.next;
+        if (current1.elem != current2.elem){
+            return "Not Similar";
+        }
+    }
+    if (((current1.next == null && current2.next != null)) || (current1.next != null && current2.next == null)){
+        return "Not Similar";
+    }
+    return "Similar";
+}
+
+AssgnTask2:
+
+public static Node organizeBooks(Node head, Integer[] popularity) {
+    for (int i=0; i<popularity.length; i++){
+        Node curr = head;
+        for (int j=0; j < popularity.length-1-i; j++){
+            if (popularity[j] < popularity[j+1]){
+                int temp = popularity[j];
+                popularity[j] = popularity[j+1];
+                popularity[j+1] = temp;
+                Object tempElem = curr.elem;
+                curr.elem = curr.next.elem;
+                curr.next.elem = tempElem;
+            }
+            curr = curr.next;
+        }
+    }
+    return head;
+}
+
+AssgnTask3:
+
+public static Node alternateMerge( Node head1, Node head2 ){
+    Node result = head1;
+    Node n1 = head1.next;
+    Node n2 = head2;
+    boolean flag = true;
+    while (n1 != null || n2 != null){
+        if (flag){
+            result.next = n2;
+            n2 = n2.next;
+            result = result.next;
+            flag = false;
+        } else {
+            result.next = n1;
+            n1 = n1.next;
+            result = result.next;
+            flag = true;
+        }
+    }
+    return head1;
+}
+
+AssgnTask4:
+
+public static Node idGenerator(Node head1, Node head2, Node head3) {
+    Node temp = head1;
+    Node prev = null;
+    Node next = head1.next;
+    while (next != null){
+        temp.next = prev;
+        prev = temp;
+        temp = next;
+        next = next.next;
+    }
+    temp.next = prev;
+    Node tail = head1;
+    Node tempA = head2;
+    Node tempB = head3;
+    while (tempA != null){
+        tail.next = new Node(((int)tempA.elem + (int)tempB.elem)%10);
+        tempA = tempA.next;
+        tempB = tempB.next;
+        tail = tail.next;
+    }
+    return temp;
+}
+
+AssgnTask5:
+
+public static void sumOddAppend(Node dh) {
+    Node curr = dh.next;
+    Node prev = dh;
+    int oddSum = 0;
+    while (curr != dh) {
+        if ((int)curr.elem%2 != 0){
+            oddSum += (int)curr.elem;
+            prev.next = curr.next;
+        }
+        prev = curr;
+        curr = curr.next;
+    }
+    curr = dh.next;
+    while (curr.next != dh) {
+        curr = curr.next;
+    }
+    Node oddSumNode = new Node(oddSum);
+    curr.next = oddSumNode;
+    oddSumNode.next = dh;
+}
+
+AssgnTask6:
+
+public static void pairJoin(DNode dh1, DNode dh2) {
+    DNode curr1 = dh1.next;
+    DNode curr2 = dh2.next;
+    DNode after1 = dh1.next.next;
+    DNode after2 = dh2.next.next;
+    while (after1 != null || after2 != null) {
+        curr1.next = curr2;
+        curr2.next = after1;
+        after1.prev = curr2;
+        curr2.prev = curr1;
+        curr1 = after1;
+        curr2 = after2;
+        after1 = after1.next;
+        after2 = after2.next;
+    }
+    curr1.next = curr2;
+    curr2.prev = curr1;
+    curr2.next = dh1;
+    dh1.prev = curr2;
+}
+
+AssgnTask7:
+
+public static void rangeMove(DNode dh, int start, int end) {
+    DNode curr = dh.next;
+    DNode tailHead = dh.prev;
+    DNode stopper = dh.prev;
+    while (curr != stopper) {
+        if (((int)curr.elem >= start) && ((int)curr.elem <= end)){
+            curr.prev.next = curr.next;
+            curr.next.prev = curr.prev;
+            curr.prev = tailHead;
+            tailHead.next = curr;
+            tailHead = curr;
+        }
+        curr = curr.next;
+    }
+    tailHead.next = dh;
+    dh.prev = tailHead;
+}

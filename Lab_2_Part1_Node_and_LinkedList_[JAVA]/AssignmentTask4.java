@@ -9,7 +9,31 @@ public class AssignmentTask4{
         //      into int or Integer like the following:
         //        (int)n.elem  or  (Integer)n.elem
 
-        return null; // Remove this when you're ready to return the new head
+        Node temp = head1;
+        Node prev = null;
+        Node next = head1.next;
+
+        while (next != null){
+            temp.next = prev;
+            prev = temp;
+            temp = next;
+            next = next.next;
+        }
+
+        temp.next = prev;
+        Node tail = head1;
+
+        Node tempA = head2;
+        Node tempB = head3;
+        
+        while (tempA != null){
+            tail.next = new Node(((int)tempA.elem + (int)tempB.elem)%10);
+            tempA = tempA.next;
+            tempB = tempB.next;
+            tail = tail.next;
+        }
+
+        return temp; // Remove this when you're ready to return the new head
     }
 
     //NOTE: if you find any issue with the driver code please inform AIB
