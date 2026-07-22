@@ -1,0 +1,147 @@
+Part01:
+
+AssgnTask01:
+
+private int hashFunction( Integer key ){
+    return (key+3)%6;
+}
+
+public void remove( Integer key ){
+    int hashIdx = hashFunction(key); 
+    if (ht[hashIdx]!= null){
+        PairNode temp = ht[hashIdx];
+        PairNode prevTemp = null;
+        while (temp != null) {
+            if (temp.key.equals(key)){
+                if (prevTemp == null){
+                    ht[hashIdx] = ht[hashIdx].next;
+                    break;
+                }
+                prevTemp.next = temp.next;
+                break;
+            }
+            prevTemp = temp;
+            temp = temp.next;
+        }
+    }
+}
+
+AssgnTask02:
+
+private int hashFunction( String key ){
+    if (key.length()%2 != 0){
+        key+='N';
+    }
+    int sum = 0;
+    for (int i = 0; i<key.length(); i+=2){
+        sum += Integer.parseInt("" + (int)key.charAt(i) + (int)key.charAt(i+1));
+    }
+    return sum%ht.length; //remove this line
+}
+
+public String searchHashtable( Object[] keyValuePair ){
+    int hashIdx =  hashFunction((String)keyValuePair[0]); 
+    PairNode temp = ht[hashIdx];
+    while (temp != null) {
+        if (temp.key.equals((String)keyValuePair[0])){
+            return "Found";
+        }
+        temp = temp.next;
+    }
+    return "Not Found";
+}
+
+Part02:
+
+AssgnTask01:
+
+public static Stack conditionalReverse(Stack stack) {
+    Stack revStack = new Stack();
+    while (!stack.isEmpty()){
+        if (stack.peek().equals(revStack.peek())){
+            stack.pop();
+        } else {
+            revStack.push(stack.pop());
+        }
+    }
+    return revStack;
+}
+
+AssgnTask02:
+
+public static String hotPotato(String[] players, int k) {
+    LinkedListQueue goromAluKhela = new LinkedListQueue();
+    for (int i=0; i < players.length; i++){
+        goromAluKhela.enqueue(players[i]);
+    }
+    Object lastOut = null;
+    while (!goromAluKhela.isEmpty()) {
+        for (int i=0; i<k; i++){
+            goromAluKhela.enqueue(goromAluKhela.dequeue());
+        }
+        lastOut = goromAluKhela.dequeue();
+    }
+    return lastOut.toString();
+}
+
+AssgnTask03:
+
+public static void dance_pair(Stack stk) {
+    Queue pairQueue = new Queue();
+    Queue maleUnpairQueue = new Queue();
+    Queue femaleUnpairQueue = new Queue();
+    Dancer temp;
+    Dancer curr;
+    while (!stk.isEmpty()) {
+        temp = (Dancer)stk.pop();
+        curr = (Dancer)stk.peek();
+        if (curr == null){
+            if (temp.getGender() == 'F'){
+                femaleUnpairQueue.enqueue(temp);
+            } else{
+                maleUnpairQueue.enqueue(temp);
+            }
+            break;
+        }
+        if (temp.getGender() != curr.getGender()){
+                pairQueue.enqueue(temp);
+                pairQueue.enqueue(stk.pop());
+        } else {
+            if (temp.getGender() == 'F' && curr.getGender() == 'F'){
+                femaleUnpairQueue.enqueue(temp);
+            } else {
+                if (!femaleUnpairQueue.isEmpty()){
+                    pairQueue.enqueue(temp);
+                    pairQueue.enqueue(femaleUnpairQueue.dequeue());
+                } else {
+                    maleUnpairQueue.enqueue(temp);
+                }
+            }
+        }
+    }
+    int pairCount = 1;
+    while (!pairQueue.isEmpty()) {
+        System.out.println("#"+pairCount+" "+pairQueue.dequeue().toString()+" & "+pairQueue.dequeue().toString());
+        pairCount++;
+    }
+    if (!maleUnpairQueue.isEmpty()){
+        System.out.println("Unpaired Male:");
+        while (!maleUnpairQueue.isEmpty()) {
+            System.out.print(maleUnpairQueue.dequeue().toString());
+            if (maleUnpairQueue.peek()!= null) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println();
+    }
+    if (!femaleUnpairQueue.isEmpty()){
+        System.out.println("Unpaired Female:");
+        while (!femaleUnpairQueue.isEmpty()) {
+            System.out.print(femaleUnpairQueue.dequeue().toString());
+            if (maleUnpairQueue.peek()!= null) {
+                System.out.print(", ");
+            }
+        }
+        System.out.println();
+    }
+}

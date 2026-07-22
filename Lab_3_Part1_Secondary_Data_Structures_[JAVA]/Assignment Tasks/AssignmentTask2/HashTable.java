@@ -62,7 +62,14 @@ public class HashTable {
 	//you need to COMPLETE this method
     private int hashFunction( String key ){
         // TO DO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        return -1; //remove this line
+        if (key.length()%2 != 0){
+            key+='N';
+        }
+        int sum = 0;
+        for (int i = 0; i<key.length(); i+=2){
+            sum += Integer.parseInt("" + (int)key.charAt(i) + (int)key.charAt(i+1));
+        }
+        return sum%ht.length; //remove this line
     }
 
 
@@ -70,9 +77,16 @@ public class HashTable {
     //Hint: you may need to use Integer.parseInt() to convert from String to Integer
     public String searchHashtable( Object[] keyValuePair ){
         // TO DO !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+        int hashIdx =  hashFunction((String)keyValuePair[0]); 
+        PairNode temp = ht[hashIdx];
+        while (temp != null) {
+            if (temp.key.equals((String)keyValuePair[0])){
+                return "Found";
+            }
+            temp = temp.next;
+        }
         //it'll return either "Found" or "Not Found"
-        return null; // remove this line
+        return "Not Found"; // remove this line
     }
 
 }

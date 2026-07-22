@@ -60,15 +60,31 @@ public class HashTable {
     //Complete this method first the write remove
     private int hashFunction( Integer key ){
         // TO DO
-
-        return -1; //remove this line
+        return (key+3)%6; //remove this line
     }
 
 
 	//you need to COMPLETE this method and MUST SUBMIT IT
     //before writing remove you should complete hashFunction
     public void remove( Integer key ){
-        // TO DO 
+        // TO DO
+        int hashIdx = hashFunction(key); 
+        if (ht[hashIdx]!= null){
+            PairNode temp = ht[hashIdx];
+            PairNode prevTemp = null;
+            while (temp != null) {
+                if (temp.key.equals(key)){
+                    if (prevTemp == null){
+                        ht[hashIdx] = ht[hashIdx].next;
+                        break;
+                    }
+                    prevTemp.next = temp.next;
+                    break;
+                }
+                prevTemp = temp;
+                temp = temp.next;
+            }
+        }
     }
 
 }
