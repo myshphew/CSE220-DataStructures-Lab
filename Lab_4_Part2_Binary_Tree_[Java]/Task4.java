@@ -7,9 +7,15 @@ public class Task4 {
     // first one is the root of the given tree
     // second one the low range and third one is high range
     // You can use extra helper private static methods as per need
-    public static Integer rangeSum( BSTNode root, Integer low, Integer high ){
-        //TO DO
-        return null; // remove this line
+    public static Integer rangeSum(BSTNode root, Integer low, Integer high){
+        Integer sum = 0;
+        if (root!=null){
+            if ((Integer)root.elem>=low && (Integer)root.elem<=high){
+                sum+=(Integer)root.elem;
+            }
+            sum+=rangeSum(root.left,low,high)+rangeSum(root.right,low,high);
+        } else return 0;
+        return sum; // remove this line
     }
     //===============================================================
 

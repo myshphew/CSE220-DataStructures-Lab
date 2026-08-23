@@ -7,9 +7,22 @@ public class Task7 {
     // This method returns an Integer
     // At times you may need to typeCast root.elem to Integer
     // You can use extra helper private static methods with extra extra params as per need
-    public static Integer levelSum( BTNode root ){
+    public static Integer levelSum(BTNode root){
         //TO DO
-        return null; //remove this line once ready
+        int lvl = 0;
+        return summation(root,++lvl); //remove this line once ready
+    }
+    public static Integer summation (BTNode root,int lvl){
+        Integer sum = 0;
+        if (root!=null){
+            sum+= summation(root.left,++lvl) + valueAtCurrentLevel(root,++lvl) + summation(root.right,++lvl);
+        } else return 0;
+        return sum;
+    }
+    public static Integer valueAtCurrentLevel (BTNode root, int lvl){
+        if (lvl%2==0){
+            return (Integer)root.elem;
+        } else return -(Integer)root.elem;
     }
     //============================================================================
 

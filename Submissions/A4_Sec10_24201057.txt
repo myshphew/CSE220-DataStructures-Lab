@@ -1,0 +1,106 @@
+Part01:
+
+AssgnTask06:
+
+public static Integer subtractSummation(BTNode root ){
+    return summation(root.left) - summation(root.right);
+}
+public static Integer summation (BTNode root){
+    Integer sum = 0;
+    if (root!=null){
+        sum+= summation(root.left) + (Integer)root.elem + summation(root.right);
+    } else return 0;
+    return sum;
+}
+
+AssgnTask07:
+
+public static Integer levelSum(BTNode root){
+    int lvl = 0;
+    return summation(root,++lvl);
+}
+public static Integer summation (BTNode root,int lvl){
+    Integer sum = 0;
+    if (root!=null){
+        sum+= summation(root.left,++lvl) + valueAtCurrentLevel(root,++lvl) + summation(root.right,++lvl);
+    } else return 0;
+    return sum;
+}
+public static Integer valueAtCurrentLevel (BTNode root, int lvl){
+    if (lvl%2==0){
+        return (Integer)root.elem;
+    } else return -(Integer)root.elem;
+}
+
+AssgnTask08:
+
+public static void swapChild( BTNode root, int lvl, int M ){
+    if (lvl<M){
+        swap(root);
+    }
+    if (root.left!=null){
+        swapChild(root.left,lvl+1, M);
+    }
+    if (root.right!=null){
+        swapChild(root.right,lvl+1, M);
+    }
+    return;
+}
+public static void swap(BTNode root){
+    BTNode temp = root.left;
+    root.left = root.right;
+    root.right = temp;
+    return;
+}
+
+Part02:
+
+AssgnTask04:
+
+public static Integer rangeSum(BSTNode root, Integer low, Integer high){
+    Integer sum = 0;
+    if (root!=null){
+        if ((Integer)root.elem>=low && (Integer)root.elem<=high){
+            sum+=(Integer)root.elem;
+        }
+        sum+=rangeSum(root.left,low,high)+rangeSum(root.right,low,high);
+    } else return 0;
+    return sum; // remove this line
+}
+
+AssgnTask05:
+
+public static Integer mirrorSum(BSTNode root){
+    return sum(root.left, root.right);
+}
+public static Integer sum(BSTNode leftNode, BSTNode rightNode){
+    Integer sum = 0;
+    if (leftNode==null || rightNode==null){
+        return 0;
+    } else {
+        sum+=(Integer)leftNode.elem+(Integer)rightNode.elem;
+    }
+    return sum+sum(leftNode.left,rightNode.right)+sum(leftNode.right,rightNode.left);
+}
+
+AssgnTask06:
+
+public static Boolean isBST(BSTNode root){
+    if (root==null){
+        return true;
+    }
+    Integer valueOfRoot = (Integer)root.elem;
+    Boolean flagLeft = true;
+    if (root.left!=null){
+        if(!((Integer)root.left.elem<valueOfRoot)){
+            flagLeft = false;
+        }
+    }
+    Boolean flagRight = true;
+    if (root.right!=null){
+        if(!((Integer)root.right.elem>valueOfRoot)){
+            flagRight = false;
+        }
+    }
+    return flagLeft&&flagRight&&isBST(root.left)&&isBST(root.right);
+}
